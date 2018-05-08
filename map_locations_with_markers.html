@@ -1,0 +1,53 @@
+<!Doctype html>
+<html>
+	<head>
+	<title>Google Map showing Markers for four states in Nigeria</title>
+	<script src="https://maps.google.com/maps/api/js?sensor=false" type="text/javascript"></script>
+
+<style>
+
+#cssstyle {
+  height: 750px;
+  width: 100%;
+}
+</style>
+</head>
+
+
+<body>
+  	<div id="cssstyle"></div>
+
+
+<script>
+var locations = [
+	['<b>Abuja</b><br> Nigeria', 9.0764785, 7.398574, 2, "https://maps.google.com/mapfiles/ms/micons/blue.png"],
+	['<b>Nassarawa,</b><br> Nigeria', 8.5705, 8.3088, 1, "https://maps.google.com/mapfiles/ms/micons/green.png"],
+    ['<b>Lagos</b><br> Nigeria', 6.5244, 3.3792, 3, "https://maps.google.com/mapfiles/ms/micons/pink.png"],
+	['<b>Imo,</b><br> Nigeria', 5.476310, 7.025853, 4, "https://maps.google.com/mapfiles/ms/micons/yellow.png"]
+];
+
+let map = new google.maps.Map(document.getElementById('cssstyle'), {
+	zoom: 7,
+	center: new google.maps.LatLng(9.0764785, 7.398574),
+	mapTypeId: google.maps.MapTypeId.ROADMAP
+});
+var infowindow = new google.maps.InfoWindow();
+var something, n;
+for (n = 0; n < locations.length; n++) {
+	something = new google.maps.Marker({
+		position: new google.maps.LatLng(locations[n][1], locations[n][2],locations[n][3],locations[n][4]),
+		icon: locations[n][4],
+		map: map
+	});
+	google.maps.event.addListener(something, 'click', (function (something, n) {
+		return function () {
+			infowindow.setContent(locations[n][0]);
+			infowindow.open(map, something);
+		}
+	})(something, n));
+}
+
+</script>
+
+</body>
+</html>
